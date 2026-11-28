@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Regression Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.automationexercise.listeners.TestListener"/>
+    </listeners>
+    <test name="All API Tests">
+        <packages>
+            <package name="com.automationexercise.tests.api.*"/>
+        </packages>
+    </test>
+    <test name="All UI and Hybrid Tests">
+        <packages>
+            <package name="com.automationexercise.tests.ui.*"/>
+            <package name="com.automationexercise.tests.hybrid.*"/>
+        </packages>
+    </test>
+</suite>

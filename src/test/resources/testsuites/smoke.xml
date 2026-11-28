@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Smoke Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.automationexercise.listeners.TestListener"/>
+    </listeners>
+    <test name="Smoke Tests">
+        <classes>
+            <class name="com.automationexercise.tests.ui.LoginUiTest"/>
+            <class name="com.automationexercise.tests.hybrid.HybridE2ETest"/>
+        </classes>
+    </test>
+</suite>
