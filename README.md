@@ -1,4 +1,4 @@
-# AutomationExercise UI + API Test Automation Framework
+# Automationexercise-UI-API-Framework
 
 Hybrid test automation framework built with **Java 25**, **Selenium WebDriver**, **RestAssured**, and **TestNG** to test core user, product, and cart workflows on [AutomationExercise](https://automationexercise.com).
 
