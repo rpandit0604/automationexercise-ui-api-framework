@@ -21,33 +21,55 @@ public final class DriverFactory {
     }
 
     public static void initDriver(String browser) {
-        browser = ConfigReader.get("browser").toLowerCase();
-        boolean isHeadless = ConfigReader.getBoolean("headless");
-        log.info("Initializing {} browser (headless={})", browser, isHeadless);
+        String targetBrowser = (browser == null || browser.isBlank())
+                ? ConfigReader.get("browser")
+                : browser;
+        targetBrowser = targetBrowser.trim().toLowerCase();
 
-        WebDriver driver = switch (browser) {
+        boolean isHeadless = ConfigReader.getBoolean("headless");
+        log.info("Initializing {} browser (headless={})", targetBrowser, isHeadless);
+
+        WebDriver driver = switch (targetBrowser) {
             case "chrome" -> {
                 ChromeOptions options = new ChromeOptions();
-                if (isHeadless) options.addArguments("--headless=new");
-                options.addArguments("--window-size=1920,1080", "--disable-notifications");
+                if (isHeadless) {
+                    options.addArguments("--headless=new");
+                }
+                options.addArguments(
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage",
+                        "--window-size=1920,1080",
+                        "--disable-notifications"
+                );
                 yield new ChromeDriver(options);
             }
             case "firefox" -> {
                 FirefoxOptions options = new FirefoxOptions();
-                if (isHeadless) options.addArguments("-headless");
+                if (isHeadless) {
+                    options.addArguments("-headless", "--width=1920", "--height=1080");
+                }
                 yield new FirefoxDriver(options);
             }
             case "edge" -> {
                 EdgeOptions options = new EdgeOptions();
-                if (isHeadless) options.addArguments("--headless=new");
-                options.addArguments("--window-size=1920,1080");
+                if (isHeadless) {
+                    options.addArguments("--headless=new");
+                }
+                options.addArguments(
+                        "--no-sandbox",
+                        "--disable-dev-shm-usage",
+                        "--window-size=1920,1080"
+                );
                 yield new EdgeDriver(options);
             }
-            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
+            default -> throw new IllegalArgumentException("Unsupported browser: " + targetBrowser);
         };
 
-        driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(ConfigReader.getInt("page.load.timeout")));
+        if (!isHeadless) {
+            driver.manage().window().maximize();
+        }
+        driver.manage().timeouts()
+                .pageLoadTimeout(Duration.ofSeconds(ConfigReader.getInt("page.load.timeout")));
         driverThreadLocal.set(driver);
     }
 
