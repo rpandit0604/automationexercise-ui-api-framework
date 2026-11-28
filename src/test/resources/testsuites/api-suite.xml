@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="API Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.automationexercise.listeners.TestListener"/>
+    </listeners>
+    <test name="API Tests">
+        <packages>
+            <package name="com.automationexercise.tests.api.*"/>
+        </packages>
+    </test>
+</suite>

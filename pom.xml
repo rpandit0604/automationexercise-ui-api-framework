@@ -24,7 +24,7 @@
         <surefire.version>3.5.2</surefire.version>
 
         <!-- Dynamic Suite Parameter (Default: smoke.xml) -->
-        <suiteXmlFile>src/test/resources/testsuites/smoke.xml</suiteXmlFile>
+        <suiteXmlFile>regression.xml</suiteXmlFile>
     </properties>
 
     <dependencies>
@@ -117,7 +117,7 @@
                 <version>${surefire.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testsuites/${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
