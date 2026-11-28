@@ -20,8 +20,8 @@ public final class DriverFactory {
     private DriverFactory() {
     }
 
-    public static void initDriver() {
-        String browser = ConfigReader.get("browser").toLowerCase();
+    public static void initDriver(String browser) {
+        browser = ConfigReader.get("browser").toLowerCase();
         boolean isHeadless = ConfigReader.getBoolean("headless");
         log.info("Initializing {} browser (headless={})", browser, isHeadless);
 
